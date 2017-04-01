@@ -13,8 +13,10 @@ import WineList from './WineList.jsx'
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom';
+
 
 
 class App extends React.Component {
@@ -36,6 +38,8 @@ class App extends React.Component {
           choice: 'true',
         },
       },
+      location: '',
+      previousLocation: '',
       products: [],
       // reviews: [],
       topReds: [],
@@ -64,8 +68,21 @@ class App extends React.Component {
     this.init = this.init.bind(this);
     this.handleUserWantsProductList = this.handleUserWantsProductList.bind(this);
     this.handleClickedProductEntry = this.handleClickedProductEntry.bind(this);
-    this.mapWinesIntoArray = this.mapWinesIntoArray.bind(this);
+    // this.mapWinesIntoArray = this.mapWinesIntoArray.bind(this);
     this.postLike = this.postLike.bind(this);
+    this.previousLocation = this.props.location
+  }
+
+
+  componentWillUpdate(nextProps) {
+    const { location } = this.props
+    // set previousLocation if props.location is not modal
+    if (
+      nextProps.history.action !== 'POP' &&
+      (!location.state || !location.state.modal)
+    ) {
+      this.previousLocation = this.props.location
+    }
   }
 
   componentDidMount(){
@@ -225,18 +242,24 @@ class App extends React.Component {
     }
   }
 
-  mapWinesIntoArray () {
-    const results = [];
-    for (const wineType in this.state.allWines) {
-      results.push(this.state.allWines[wineType]);
-    }
-    return results;
-  }
+  // mapWinesIntoArray () {
+  //   const results = [];
+  //   for (const wineType in this.state.allWines) {
+  //     results.push(this.state.allWines[wineType]);
+  //   }
+  //   return results;
+  // }
 
   render () {
+    const { location } = this.props
+    console.log( {location} )
+    const isModal = !!(
+      location.state &&
+      location.state.modal &&
+      this.previousLocation !== location // not initial render
+    )
 
     const wineRoutes = Object.values(this.state.allWines);
-
     console.log('wineRoutes', wineRoutes)
     
     const Products = () => (
@@ -253,10 +276,8 @@ class App extends React.Component {
     )
 
     const Homepage = () => (
-      <HomePageWines
-        topReds={this.state.allWines.reds.wines} 
-        topWhites={this.state.allWines.whites.wines} 
-        topRated={this.state.allWines.uvas.wines}
+      <HomePageWines 
+        wineRoutes={wineRoutes}
         handleClickedProductEntry={this.handleClickedProductEntry}
         postLike={this.postLike}
       />
@@ -292,30 +313,35 @@ class App extends React.Component {
               </div>    
             </div>
             <div>
+              <Link to={{pathname: '/questionnaire', state: { modal: true} }} onClick >
+                <p>Take Questionnaire to Improve our suggestions!</p>
+              </Link>
+            </div>
+            <div>
               <Nav wineRoutes={wineRoutes} />
               <hr/>
             </div>
             <div>
-              <Switch location={isModal ? this.previousLocation : location} >
+              <Switch location={isModal ? this.previousLocation : location}>
                 <Route exact path='/' component={Homepage} />
-                <Route path='/questionnaire' component={() => (<Questionnaire />)} />
+                <Route path='/products' component={Products}/>
+                <Route path='/product/overview' component={ProductOverviewComp}/>
+                {wineRoutes.map((route, index) => (
+                  <Route
+                    key={index}
+                    exact path={route.path}
+                    component={() => (
+                      <WineList
+                        handleClickedProductEntry={this.handleClickedProductEntry}
+                        wines={route.wines}
+                        postLike={this.postLike}
+                        choice={route.choice}
+                      />
+                    )}
+                  />
+                ))}
               </Switch>
-              <Route path='/products' component={Products}/>
-              <Route path='/product/overview' component={ProductOverviewComp}/>
-              {wineRoutes.map((route, index) => (
-                <Route
-                  key={index}
-                  exact path={route.path}
-                  component={() => (
-                    <WineList
-                      handleClickedProductEntry={this.handleClickedProductEntry}
-                      wines={route.wines}
-                      postLike={this.postLike}
-                      choice={route.choice}
-                    />
-                  )}
-                />
-              ))}
+              {isModal ? <Route path='questionnaire' component={() => (<Questionnaire history={this.props.history} />)} /> : null}
             </div>
           </div>
         </Router>

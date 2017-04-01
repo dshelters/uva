@@ -1,32 +1,33 @@
 import React from 'react';
 import WineList from './WineList.jsx';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+} from 'react-router-dom';
 
-var HomePageWines = ({topReds, topWhites, topRated, handleClickedProductEntry, postLike}) => (
-  <div className='topItemsWrapper'>
-    <div className='trendingWineListWrapper'>
-      <WineList
-        handleClickedProductEntry={handleClickedProductEntry}
-        wines={topReds}
-        postLike={postLike}
-      />
-    </div>
-    <div className='bestValueWineListWrapper'>
-      <WineList
-        handleClickedProductEntry={handleClickedProductEntry}
-        wines={topWhites}
-        postLike={postLike}
-      />
-    </div>
+class HomePageWines extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {};
+  }
 
-    <div className='UvasChoiceWineListWrapper'>
-      <WineList
-        handleClickedProductEntry={handleClickedProductEntry}
-        wines={topRated}
-        postLike={postLike}
-        choice={true}
-      />
-    </div>
-  </div>
-);
+  render() {
+    const {wineRoutes, handleClickedProductEntry, postLike} = this.props;
+    return (
+      <div className='topItemsWrapper'>
+        {wineRoutes.map((route, index) => (
+          <div key={index}>
+            <WineList
+              handleClickedProductEntry={handleClickedProductEntry}
+              wines={route.wines}
+              postLike={postLike}
+            />
+          </div>
+        ))}
+      </div>
+    )
+  }
+};
 
 export default HomePageWines;

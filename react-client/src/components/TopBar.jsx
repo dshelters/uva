@@ -6,25 +6,15 @@ import {
 } from 'react-router-dom';
 
 
-class TopBar extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {};
-  }
+const TopBar = (props) => (
 
-
-  render(){
-    var signup = (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsSignUp} value='signup'>Sign Up</button>);
-    var home = (<button onClick={this.props.handleUserWantsHome} className='flexItem flexEdge' value='login'>Home</button>);
-
-    return(
-      <Link to='/'>
-        <div className='flexContainer'>
-          { this.props.userWantsHomePage && !this.props.userLoggedIn ? signup : this.props.userWantsHomePage && this.props.userLoggedIn || this.props.userWantsLogin ? home : home}
-       </div>  
-      </Link>
-    )
-  }
-}
+  <div>
+    <Link to='/'>
+      <div className='flexContainer'>
+        <button onClick={props.handleUserWantsHome} className='flexItem flexEdge' value='login'>Home</button>
+     </div>  
+    </Link>
+  </div>
+)
 
 export default TopBar;

@@ -4,27 +4,15 @@ class Questionnaire extends React.Component {
   constructor (props) {
     super(props);
     this.state = {};
+    const { history } = this.props;
+  }
+  back (e) {
+    e.stopPropagation()
+    history.goBack()
   }
 
-  // previousLocation = this.props.previousLocation
-
-  // componentWillUpdate({nextProps}) {
-  //   const {location} = this.props
-  //   if (
-  //     nextProps.history.action !== 'POP'
-  //     && (!location.state || !location.state.modal)
-  //   ) {
-  //     this.previousLocation = this.props.location
-  //   }
-  // }
-
   render () {
-    // const {location} = this.props
-    // const isModal = !!(
-    //   location.state
-    //   && location.state.modal
-    //   && this.previousLocation !== location
-    // )
+    console.log('this.props in Questionnaire', this.props)
 
     return (
       
