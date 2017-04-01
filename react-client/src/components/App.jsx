@@ -296,7 +296,10 @@ class App extends React.Component {
               <hr/>
             </div>
             <div>
-              <Route exact path='/' component={Homepage}/>
+              <Switch location={isModal ? this.previousLocation : location} >
+                <Route exact path='/' component={Homepage} />
+                <Route path='/questionnaire' component={() => (<Questionnaire />)} />
+              </Switch>
               <Route path='/products' component={Products}/>
               <Route path='/product/overview' component={ProductOverviewComp}/>
               {wineRoutes.map((route, index) => (
