@@ -76,6 +76,8 @@ p {
   text-align: center;
   padding: 1em;
   color: white;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
 }
 
 .mainSearchBar {
