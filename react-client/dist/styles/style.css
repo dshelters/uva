@@ -516,3 +516,13 @@ hr {
 .selectedDislike {
   background-color: #ff5b5b;
 }
+
+.questionnaire {
+  position: absolute;
+  background: #fff;
+  top: 25;
+  left: 10%;
+  right: 10%;
+  padding: 15;
+  border: 2px solid #444;
+}

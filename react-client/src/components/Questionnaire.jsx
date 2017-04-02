@@ -8,7 +8,7 @@ class Questionnaire extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='questionnaire'>
         <h2>Help Us Give You Great Recommendations</h2>
         <form action="http://localhost:3000/train" method='POST'>
           <div>

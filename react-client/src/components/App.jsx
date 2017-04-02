@@ -304,8 +304,8 @@ class App extends React.Component {
               <hr/>
             </div>
             <div>
+              <Route path='/questionnaire' component={Questionnaire}/>
               <Route exact path='/' component={Homepage}/>
-              <Route exact path='/questionnaire' component={Questionnaire}/>
               <Route path='/products' component={Products}/>
               <Route path='/product/overview' component={ProductOverviewComp}/>
               {wineRoutes.map((route, index) => (
