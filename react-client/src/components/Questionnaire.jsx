@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom';
 
 class Questionnaire extends React.Component {
   constructor (props) {
@@ -6,13 +12,24 @@ class Questionnaire extends React.Component {
     this.state = {};
     const { history } = this.props;
   }
-  back (e) {
-    e.stopPropagation()
-    history.goBack()
-  }
+  // back (e) {
+  //   e.stopPropagation()
+  //   history.goBack()
+  // }
 
   render () {
-    console.log('this.props in Questionnaire', this.props)
+    // console.log('this.props in Questionnaire', this.props)
+    // console.log('history in Questionnaire', history)
+    // console.log('location in Questionnaire', location )
+    // console.log('location.state in Questionnaire', location.state )
+    // // console.log('!!location.state.modal in render', !!location.state.modal )
+    // console.log('this.previousLocation !== location in render', this.previousLocation !== location)
+    // const { location } = this.props
+    // const isModal = !!(
+    //   location.state &&
+    //   location.state.modal &&
+    //   this.previousLocation !== location // not initial render
+    // )
 
     return (
       

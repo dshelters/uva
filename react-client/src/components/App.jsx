@@ -38,8 +38,6 @@ class App extends React.Component {
           choice: 'true',
         },
       },
-      location: '',
-      previousLocation: '',
       products: [],
       // reviews: [],
       topReds: [],
@@ -70,11 +68,13 @@ class App extends React.Component {
     this.handleClickedProductEntry = this.handleClickedProductEntry.bind(this);
     // this.mapWinesIntoArray = this.mapWinesIntoArray.bind(this);
     this.postLike = this.postLike.bind(this);
-    this.previousLocation = this.props.location
+    this.previousLocation = props.location
+    console.log('app props con: ', this.props)
   }
 
 
   componentWillUpdate(nextProps) {
+    console.log('app props in componentWillUpdate: ', this.props)
     const { location } = this.props
     // set previousLocation if props.location is not modal
     if (
@@ -251,16 +251,19 @@ class App extends React.Component {
   // }
 
   render () {
-    const { location } = this.props
-    console.log( {location} )
-    const isModal = !!(
-      location.state &&
-      location.state.modal &&
-      this.previousLocation !== location // not initial render
-    )
+    // const { location } = this.props
+    // console.log('location in render', location )
+    // console.log('location.state in render', location.state )
+    // // console.log('!!location.state.modal in render', !!location.state.modal )
+    // console.log('this.previousLocation !== location in questionnaire', this.previousLocation !== location)
+    // const isModal = !!(
+    //   location.state &&
+    //   location.state.modal &&
+    //   this.previousLocation !== location // not initial render
+    // )
 
     const wineRoutes = Object.values(this.state.allWines);
-    console.log('wineRoutes', wineRoutes)
+    // console.log('isModal', isModal)
     
     const Products = () => (
       <ProductList 
@@ -305,6 +308,7 @@ class App extends React.Component {
                   userHasSearched={this.state.userHasSearched}
                 />
               </Link>
+                <Route path='/questionnaire' component={Questionnaire}/>
               <div className = 'heroImageContainer'>
                 <div className = 'heroContentWrapper'>
                   Uva 2.Grape
@@ -313,7 +317,11 @@ class App extends React.Component {
               </div>    
             </div>
             <div>
-              <Link to={{pathname: '/questionnaire', state: { modal: true} }} onClick >
+              <Link to={{
+                pathname: '/questionnaire',
+                state: { modal: true}
+                }}
+              >
                 <p>Take Questionnaire to Improve our suggestions!</p>
               </Link>
             </div>
@@ -322,7 +330,6 @@ class App extends React.Component {
               <hr/>
             </div>
             <div>
-              <Switch location={isModal ? this.previousLocation : location}>
                 <Route exact path='/' component={Homepage} />
                 <Route path='/products' component={Products}/>
                 <Route path='/product/overview' component={ProductOverviewComp}/>
@@ -331,17 +338,16 @@ class App extends React.Component {
                     key={index}
                     exact path={route.path}
                     component={() => (
-                      <WineList
-                        handleClickedProductEntry={this.handleClickedProductEntry}
-                        wines={route.wines}
-                        postLike={this.postLike}
-                        choice={route.choice}
-                      />
-                    )}
+                        <WineList
+                          handleClickedProductEntry={this.handleClickedProductEntry}
+                          wines={route.wines}
+                          postLike={this.postLike}
+                          choice={route.choice}
+                        />
+                      )
+                    }
                   />
                 ))}
-              </Switch>
-              {isModal ? <Route path='questionnaire' component={() => (<Questionnaire history={this.props.history} />)} /> : null}
             </div>
           </div>
         </Router>
@@ -349,5 +355,13 @@ class App extends React.Component {
     )
   }
 }
+              // <Switch location={isModal ? this.previousLocation : location}>
+              // </Switch>
+              // <Switch location={isModal ? this.previousLocation : location}>
+              // </Switch>
+                // {isModal ? <Route path='/questionnaire' component={() => (<Questionnaire />)} /> : null}
+                // <Switch location={isModal ? this.previousLocation : location}>
+                  
+                // </Switch>
 
 export default App;
