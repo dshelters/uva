@@ -526,3 +526,21 @@ hr {
   padding: 15;
   border: 2px solid #444;
 }
+
+.questionNav {
+  display: flex;
+
+}
+
+.nextButton {
+  position: absolute;
+  float: right;
+  padding-left: 25%;
+  order: 2;
+}
+.backButton {
+  position: left;
+  float: left;
+  padding-right: 25%;
+  order: 1;
+}
