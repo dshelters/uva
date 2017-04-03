@@ -5,32 +5,15 @@ import {
   Link
 } from 'react-router-dom';
 
-class TopBar extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {};
-  }
-
-  render(){
-    // var signup = (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsSignUp} value='signup'>Sign Up</button>);
-    var home = (<button onClick={() => {this.props.handleClickedNavItem(-1)}} className='flexItem flexEdge' value='login'>Home</button>);
-    var questionnaire = (<button className='flexItem flexEdge'>Survey</button>);
-
-    return(
-      <div>
-        <Link to='/'>
-          <div className='flexContainer'>
-            {home}
-          </div>  
-        </Link>
-        <Link to='/questionnaire'>
-          <div className='flexContainer'>
-            {questionnaire}
-          </div>   
-        </Link>
-      </div>
-    )
-  }
-}
+var TopBar = ({handleClickedNavItem}) => (
+  <div className='flexContainer'>
+    <Link to='/'>
+      <button style={{"margin-right": "15px"}} onClick={() => {handleClickedNavItem(-1)}}>Home</button>
+    </Link>
+    <Link to='/questionnaire'>
+      <button onClick={() => {handleClickedNavItem(-1)}}>Survey</button>
+    </Link>
+  </div>
+);
 
 export default TopBar;
