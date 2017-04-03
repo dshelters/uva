@@ -56,9 +56,9 @@ const NavButtons = (props) => {
               <button>Previous</button>
             </Link>
 
-            <div onClick={props.submitAnswers}>
+            <Link to='/' onClick={props.submitAnswers}>
               <button>Submit responses!</button>
-            </div>
+            </Link>
 
         </div>
       )

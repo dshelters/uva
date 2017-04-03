@@ -4,8 +4,7 @@ import $ from 'jquery';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
-  Redirect
+  Link
 } from 'react-router-dom';
 
 class Questionnaire extends React.Component {
