@@ -41,7 +41,7 @@ class Questionnaire extends React.Component {
 
   updateAnswers (e) {
     let question = e.target.name;
-    let answer = e.target.value
+    let answer = e.target.value;
     this.setState(() => {
       this.state[question][answer] = !this.state[question][answer];
     });
