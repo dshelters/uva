@@ -54,7 +54,6 @@ class App extends React.Component {
     this.init = this.init.bind(this);
     this.handleUserWantsProductList = this.handleUserWantsProductList.bind(this);
     this.handleClickedProductEntry = this.handleClickedProductEntry.bind(this);
-    this.mapWinesIntoArray = this.mapWinesIntoArray.bind(this);
     this.postLike = this.postLike.bind(this);
     this.handleClickedNavItem = this.handleClickedNavItem.bind(this);
   }
@@ -220,14 +219,6 @@ class App extends React.Component {
       selection.navSelection[index] = 'active';
     }
     this.setState(selection);
-  }
-
-  mapWinesIntoArray () {
-    const results = [];
-    for (const wineType in this.state.allWines) {
-      results.push(this.state.allWines[wineType]);
-    }
-    return results;
   }
 
   render () {
